@@ -10,7 +10,7 @@ Standards-Version: 3.9.5
 Homepage: https://github.com/matrix-ng
 
 Package: matrix-ng-kernel-modules
-Architecture: all
+Architecture: any
 Depends:
     ${misc:Depends},
     dkms
@@ -18,7 +18,7 @@ Depends:
 Description: Source DKMS for MATRIX Creator kernel modules
 
 Package: matrix-ng-init
-Architecture: all
+Architecture: any
 Depends:
     ${shlibs:Depends},
     ${misc:Depends},
@@ -30,13 +30,13 @@ Depends:
 Description: Source DKMS for MATRIX Creator kernel modules
 
 Package: matrix-ng-firmware
-Architecture: all
+Architecture: any
 Depends:
     matrix-ng-init
 Description: Firmware binaries for MATRIX Creator and Voice
 
 Package: matrix-ng-tools
-Architecture: all
+Architecture: any
 Depends:
     ${shlibs:Depends},
     ${misc:Depends},
@@ -44,8 +44,26 @@ Depends:
 Description: General tools for managing MATRIX devices
 
 Package: matrix-ng-hal
-Architecture: all
+Conflicts: libmatrixio-creator-hal
+Replaces: libmatrixio-creator-hal
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends:
     ${shlibs:Depends},
+    ${misc:Depends},
+    wiringpi,
+    libfftw3-dev,
+    libgflags-dev
+Description: Hardware Abstraction Layer for MATRIX devices
+
+Package: matrix-ng-hal-dev
+Conflicts: libmatrixio-creator-hal-dev
+Replaces: libmatrixio-creator-hal-dev
+Section: libdevel
+Architecture: any
+Depends:
+    matrix-ng-hal (= ${binary:Version}),
+    libc6-dev | libc-dev,
     ${misc:Depends}
 Description: Hardware Abstraction Layer for MATRIX devices
