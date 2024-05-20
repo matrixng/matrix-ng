@@ -11,7 +11,7 @@ override_dh_auto_build:
 	dh_auto_build -v -D kernel-modules/src -- matrixio.dtbo
 
 override_dh_install:
-	dh_install kernel-modules/src/*.c kernel-modules/src/*.h kernel-modules/src/Makefile kernel-modules/src/Kbuild usr/src/matrixio-kernel-modules-$(DEB_VERSION_UPSTREAM)/
+	dh_install kernel-modules/src/*.c kernel-modules/src/*.h kernel-modules/src/Makefile kernel-modules/src/Kbuild usr/src/matrix-ng-kernel-modules-$(DEB_VERSION_UPSTREAM)/
 	dh_install kernel-modules/src/matrixio.dtbo boot/overlays
 
 override_dh_dkms:
