@@ -1,0 +1,2 @@
+kernel-modules/misc/asound.cfg etc/
+kernel-modules/misc/matrixio.conf etc/modules-load.d/

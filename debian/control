@@ -1,0 +1,16 @@
+Source: matrix-ng
+Section: embedded
+Priority: optional
+Maintainer: Jozsef Kiraly <fonix232@gmail.com>
+Build-Depends: 
+    debhelper, dkms, device-tree-compiler
+Standards-Version: 3.9.5
+Homepage: https://github.com/matrix-ng
+
+Package: matrix-ng-kernel-modules
+Architecture: all
+Depends:
+    ${misc:Depends},
+    dkms
+    # ADD KERNEL HEADERS PACKAGE
+Description: Source DKMS for MATRIX Creator kernel modules
