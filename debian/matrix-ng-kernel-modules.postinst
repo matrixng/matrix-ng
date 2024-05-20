@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-DKMS_NAME=matrixio-kernel-modules
+DKMS_NAME=matrix-ng-kernel-modules
 DKMS_PACKAGE_NAME=$DKMS_NAME-dkms
 DKMS_VERSION=0.2.5
 
@@ -24,10 +24,11 @@ case "$1" in
 			exit 1
 		else
 			echo "Enable configurations in /boot/config.txt"
-			cp /boot/config.txt /boot/config.txt.matrixio.bk \
-			&& /usr/share/matrixlabs/matrixio-devices/matrixlabs_edit_settings.py \
-			  /boot/config.txt.matrixio.bk \
-		   	  /usr/share/matrixlabs/matrixio-devices/config/kernel_modifications.txt > /boot/config.txt 
+			## TODO: Replace with a better approach for enabling the overlay
+			# cp /boot/config.txt /boot/config.txt.matrixio.bk \
+			# && /usr/share/matrixlabs/matrixio-devices/matrixlabs_edit_settings.py \
+			#   /boot/config.txt.matrixio.bk \
+		   	#   /usr/share/matrixlabs/matrixio-devices/config/kernel_modifications.txt > /boot/config.txt 
 		fi
 	;;
 esac

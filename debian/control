@@ -4,10 +4,20 @@ Priority: optional
 Maintainer: Jozsef Kiraly <fonix232@gmail.com>
 Build-Depends: 
     debhelper,
-    dkms, dh-dkms
+    dkms, dh-dkms,
     device-tree-compiler
 Standards-Version: 3.9.5
 Homepage: https://github.com/matrix-ng
+
+Package: matrix-ng
+Architecture: any
+Depends:
+    matrix-ng-kernel-modules,
+    matrix-ng-init,
+    matrix-ng-firmware,
+    matrix-ng-tools,
+    matrix-ng-hal
+Description: Parent meta package for MATRIX Creator and Voice
 
 Package: matrix-ng-kernel-modules
 Architecture: any

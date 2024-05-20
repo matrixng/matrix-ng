@@ -8,11 +8,11 @@ include /usr/share/dpkg/pkg-info.mk
 	dh $@ --with dkms
 
 override_dh_auto_build:
-	dh_auto_build -v -D src -- matrixio.dtbo
+	dh_auto_build -v -D kernel-modules/src -- matrixio.dtbo
 
 override_dh_install:
-	dh_install src/*.c src/*.h src/Makefile src/Kbuild usr/src/matrixio-kernel-modules-$(DEB_VERSION_UPSTREAM)/
-	dh_install src/matrixio.dtbo boot/overlays
+	dh_install kernel-modules/src/*.c kernel-modules/src/*.h kernel-modules/src/Makefile kernel-modules/src/Kbuild usr/src/matrixio-kernel-modules-$(DEB_VERSION_UPSTREAM)/
+	dh_install kernel-modules/src/matrixio.dtbo boot/overlays
 
 override_dh_dkms:
 	dh_dkms -V $(DEB_VERSION_UPSTREAM)
