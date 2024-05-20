@@ -84,3 +84,24 @@ dkms.conf
 *.exe
 *.out
 *.app
+
+# Debian packaging
+# Ignore generated files
+/*.deb
+/*.dsc
+/*.changes
+/*.build
+/*.buildinfo
+/*.tar.gz
+
+# Only care about debian/ directory
+/*/*
+!/*/debian
+
+# Ignore files generated during build
+/*/debian/files
+/*/debian/*.substvars
+/*/debian/*.log
+/*/debian/*.debhelper
+/*/debian/*-stamp
+/*/debian/*/
