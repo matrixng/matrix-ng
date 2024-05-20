@@ -1,12 +1,17 @@
-obj-m += matrixio-core.o
-obj-m += matrixio-uart.o
-obj-m += matrixio-everloop.o
-obj-m += matrixio-codec.o
-obj-m += matrixio-mic.o
-obj-m += matrixio-playback.o
-obj-m += matrixio-gpio.o
-obj-m += matrixio-env.o
-obj-m += matrixio-imu.o
-obj-m += matrixio-regmap.o
+DTC?=dtc
+KDIR?=/lib/modules/$(shell uname -r)/build
 
-ccflags-y := -Wno-missing-attributes
+all: matrixio.dtbo
+	$(MAKE) -C $(KDIR) M=$(CURDIR) modules
+
+matrixio.dtbo: matrixio.dts
+	$(DTC) -W no-unit_address_vs_reg -@ -I dts -O dtb -o matrixio.dtbo matrixio.dts
+
+install: matrixio.dtbo
+	$(MAKE) -C $(KDIR) M=$(CURDIR) modules_install
+	depmod -A
+	cp matrixio.dtbo /boot/overlays
+
+clean:
+	$(MAKE) -C $(KDIR) M=$(CURDIR) clean
+	rm -f matrixio.dtbo

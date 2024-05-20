@@ -42,7 +42,8 @@ struct file_operations matrixio_everloop_file_operations = {
     .open = matrixio_everloop_open,
     .write = matrixio_everloop_write};
 
-static int matrixio_everloop_uevent(struct device *d,
+static int matrixio_everloop_uevent(
+					const struct device *d,
 				    struct kobj_uevent_env *env)
 {
 	add_uevent_var(env, "DEVMODE=%#o", 0666);
@@ -63,7 +64,7 @@ static int matrixio_everloop_probe(struct platform_device *pdev)
 	el->mio = dev_get_drvdata(pdev->dev.parent);
 
 	alloc_chrdev_region(&el->devt, 0, 1, "matrixio_everloop");
-	el->cl = class_create(THIS_MODULE, "matrixio_everloop");
+	el->cl = class_create("matrixio_everloop");
 
 	el->cl->dev_uevent = matrixio_everloop_uevent;
 

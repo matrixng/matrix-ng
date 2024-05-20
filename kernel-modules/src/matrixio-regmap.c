@@ -68,7 +68,7 @@ struct file_operations matrixio_regmap_file_operations = {
     .open = matrixio_regmap_open,
     .unlocked_ioctl = matrixio_regmap_ioctl};
 
-static int matrixio_regmap_uevent(struct device *d, struct kobj_uevent_env *env)
+static int matrixio_regmap_uevent(const struct device *d, struct kobj_uevent_env *env)
 {
 	add_uevent_var(env, "DEVMODE=%#o", 0666);
 	return 0;
@@ -88,7 +88,7 @@ static int matrixio_regmap_probe(struct platform_device *pdev)
 	el->mio = dev_get_drvdata(pdev->dev.parent);
 
 	alloc_chrdev_region(&el->devt, 0, 1, "matrixio_regmap");
-	el->cl = class_create(THIS_MODULE, "matrixio_regmap");
+	el->cl = class_create("matrixio_regmap");
 
 	el->cl->dev_uevent = matrixio_regmap_uevent;
 

@@ -225,22 +225,27 @@ matrixio_playback_pointer(struct snd_soc_component *component, struct snd_pcm_su
 	return bytes_to_frames(runtime, ms->position);
 }
 
-static int matrixio_playback_copy(struct snd_soc_component *component, struct snd_pcm_substream *substream,
-				  int channel, snd_pcm_uframes_t pos,
-				  void __user *buf, snd_pcm_uframes_t bytes)
-{
-	int ret;
-	unsigned int copied;
+// TODO: Replace with working implementation
+// static int matrixio_playback_copy(
+// 				  struct snd_soc_component *component, 
+// 				  struct snd_pcm_substream *substream,
+// 				  int channel, 
+// 				  snd_pcm_uframes_t pos,
+// 				  void __user *buf, 
+// 				  snd_pcm_uframes_t bytes)
+// {
+// 	int ret;
+// 	unsigned int copied;
 
-	struct snd_pcm_runtime *runtime = substream->runtime;
+// 	struct snd_pcm_runtime *runtime = substream->runtime;
 
-	int frame_count = bytes_to_frames(runtime, bytes);
+// 	int frame_count = bytes_to_frames(runtime, bytes);
 
-	ret = kfifo_from_user(&pcm_fifo, buf, bytes, &copied);
-	up(&sem);
+// 	ret = kfifo_from_user(&pcm_fifo, buf, bytes, &copied);
+// 	up(&sem);
 
-	return frame_count;
-}
+// 	return frame_count;
+// }
 
 static int matrixio_playback_select_info(struct snd_kcontrol *kcontrol,
 					 struct snd_ctl_elem_info *uinfo)
@@ -332,7 +337,7 @@ static const struct snd_soc_component_driver matrixio_soc_platform = {
     .hw_free = matrixio_playback_hw_free,
     .prepare = matrixio_playback_prepare,
     .pointer = matrixio_playback_pointer,
-    .copy_user = matrixio_playback_copy,
+    // .copy_user = matrixio_playback_copy, TODO: Replace with working implementation
     .close = matrixio_playback_close,
 };
 

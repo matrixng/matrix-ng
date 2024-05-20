@@ -14,6 +14,7 @@
 #include <linux/delay.h>
 #include <linux/err.h>
 #include <linux/iio/iio.h>
+#include <linux/iio/iio-opaque.h>
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/platform_device.h>
@@ -114,19 +115,20 @@ static int matrixio_imu_write_raw(struct iio_dev *indio_dev,
 				  int val2, long mask)
 {
 	struct matrixio_bus *data = iio_priv(indio_dev);
+	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
 	int ret;
 	int data_write;
 
 	if (mask == IIO_CHAN_INFO_CALIBBIAS) {
 
 		data_write = matrixio_int_plus_micro_to_int(val, val2);
-		mutex_lock(&indio_dev->mlock);
+		mutex_lock(&iio_dev_opaque->mlock);
 		ret = matrixio_write(data->mio,
 				     MATRIXIO_MCU_BASE +
 					 (MATRIXIO_SRAM_OFFSET_IMU >> 1) +
 					 chan->address + MATRIXIO_CALIB_OFFSET,
 				     sizeof(data_write), &data_write);
-		mutex_unlock(&indio_dev->mlock);
+		mutex_unlock(&iio_dev_opaque->mlock);
 		return ret;
 	}
 
@@ -138,6 +140,7 @@ static int matrixio_imu_read_raw(struct iio_dev *indio_dev,
 				 int *val2, long mask)
 {
 	struct matrixio_bus *data = iio_priv(indio_dev);
+	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
 	int ret;
 	int data_read;
 	int offset;
@@ -153,13 +156,13 @@ static int matrixio_imu_read_raw(struct iio_dev *indio_dev,
 		return -EINVAL;
 	}
 
-	mutex_lock(&indio_dev->mlock);
+	mutex_lock(&iio_dev_opaque->mlock);
 	ret = matrixio_read(data->mio,
 			    MATRIXIO_MCU_BASE +
 				(MATRIXIO_SRAM_OFFSET_IMU >> 1) + offset,
 			    sizeof(data_read), &data_read);
 
-	mutex_unlock(&indio_dev->mlock);
+	mutex_unlock(&iio_dev_opaque->mlock);
 
 	if (ret)
 		return ret;

@@ -148,9 +148,10 @@ static void matrixio_uart_shutdown(struct uart_port *port)
 	free_irq(irq, matrixio);
 }
 
-static void matrixio_uart_set_termios(struct uart_port *port,
+static void matrixio_uart_set_termios(
+					  struct uart_port *port,
 				      struct ktermios *termios,
-				      struct ktermios *old)
+				      const struct ktermios *old)
 {
 }
 
