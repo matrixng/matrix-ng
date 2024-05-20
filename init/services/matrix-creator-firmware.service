@@ -1,0 +1,9 @@
+[Unit]
+Description=MATRIX start up service (MATRIX Voice - MATRIX Creator)
+
+[Service]
+Type=oneshot
+ExecStart=/opt/matrix-ng/matrix-init.sh
+
+[Install]
+WantedBy=multi-user.target

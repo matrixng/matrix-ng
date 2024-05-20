@@ -3,7 +3,9 @@ Section: embedded
 Priority: optional
 Maintainer: Jozsef Kiraly <fonix232@gmail.com>
 Build-Depends: 
-    debhelper, dkms, device-tree-compiler
+    debhelper,
+    dkms, dh-dkms
+    device-tree-compiler
 Standards-Version: 3.9.5
 Homepage: https://github.com/matrix-ng
 
@@ -12,5 +14,38 @@ Architecture: all
 Depends:
     ${misc:Depends},
     dkms
-    # ADD KERNEL HEADERS PACKAGE
+# ADD KERNEL HEADERS PACKAGE
 Description: Source DKMS for MATRIX Creator kernel modules
+
+Package: matrix-ng-init
+Architecture: all
+Depends:
+    ${shlibs:Depends},
+    ${misc:Depends},
+    matrix-ng-kernel-modules,
+    matrix-ng-tools,
+    xc3sprog,
+    openocd,
+    python3-pip
+Description: Source DKMS for MATRIX Creator kernel modules
+
+Package: matrix-ng-firmware
+Architecture: all
+Depends:
+    matrix-ng-init
+Description: Firmware binaries for MATRIX Creator and Voice
+
+Package: matrix-ng-tools
+Architecture: all
+Depends:
+    ${shlibs:Depends},
+    ${misc:Depends},
+    matrix-ng-hal
+Description: General tools for managing MATRIX devices
+
+Package: matrix-ng-hal
+Architecture: all
+Depends:
+    ${shlibs:Depends},
+    ${misc:Depends}
+Description: Hardware Abstraction Layer for MATRIX devices

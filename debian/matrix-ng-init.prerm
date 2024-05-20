@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Disable firmware loading at startup"
+systemctl disable matrixio-devices-firmware
