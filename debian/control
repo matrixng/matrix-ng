@@ -9,16 +9,6 @@ Build-Depends:
 Standards-Version: 3.9.5
 Homepage: https://github.com/matrix-ng
 
-Package: matrix-ng
-Architecture: any
-Depends:
-    matrix-ng-kernel-modules,
-    matrix-ng-init,
-    matrix-ng-firmware,
-    matrix-ng-tools,
-    matrix-ng-hal
-Description: Parent meta package for MATRIX Creator and Voice
-
 Package: matrix-ng-kernel-modules
 Architecture: any
 Depends:
@@ -77,3 +67,13 @@ Depends:
     libc6-dev | libc-dev,
     ${misc:Depends}
 Description: Hardware Abstraction Layer for MATRIX devices
+
+Package: matrix-ng
+Architecture: any
+Depends:
+    matrix-ng-kernel-modules,
+    matrix-ng-init,
+    matrix-ng-firmware,
+    matrix-ng-tools,
+    matrix-ng-hal
+Description: Parent meta package for MATRIX Creator and Voice

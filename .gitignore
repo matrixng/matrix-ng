@@ -95,13 +95,11 @@ dkms.conf
 /*.tar.gz
 
 # Only care about debian/ directory
-/*/*
-!/*/debian
 
 # Ignore files generated during build
-/*/debian/files
-/*/debian/*.substvars
-/*/debian/*.log
-/*/debian/*.debhelper
-/*/debian/*-stamp
-/*/debian/*/
+debian/files
+debian/*.substvars
+debian/*.log
+debian/*.debhelper
+debian/*-stamp
+debian/*/

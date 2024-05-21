@@ -10,7 +10,7 @@ matrixio.dtbo: matrixio.dts
 install: matrixio.dtbo
 	$(MAKE) -C $(KDIR) M=$(CURDIR) modules_install
 	depmod -A
-	cp matrixio.dtbo /boot/overlays
+	cp matrixio.dtbo /boot/firmware/overlays
 
 clean:
 	$(MAKE) -C $(KDIR) M=$(CURDIR) clean

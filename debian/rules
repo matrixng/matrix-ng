@@ -1,5 +1,6 @@
 #!/usr/bin/make -f
-#DH_VERBOSE = 1
+DH_VERBOSE = 1
+export DH_OPTIONS=-v
 DPKG_EXPORT_BUILDFLAGS = 1
 
 include /usr/share/dpkg/pkg-info.mk
@@ -7,12 +8,21 @@ include /usr/share/dpkg/pkg-info.mk
 %:
 	dh $@ --with dkms
 
-override_dh_auto_build:
-	dh_auto_build -v -D kernel-modules/src -- matrixio.dtbo
+#override_dh_auto_build:
+#	dh_auto_build -v -D kernel-modules/src -- matrixio.dtbo
 
-override_dh_install:
-	dh_install kernel-modules/src/*.c kernel-modules/src/*.h kernel-modules/src/Makefile kernel-modules/src/Kbuild usr/src/matrix-ng-kernel-modules-$(DEB_VERSION_UPSTREAM)/
-	dh_install kernel-modules/src/matrixio.dtbo boot/overlays
+# override_dh_install:
+#	dh_install kernel-modules/src/*.c kernel-modules/src/*.h kernel-modules/src/Makefile kernel-modules/src/Kbuild usr/src/matrix-ng-kernel-modules-$(DEB_VERSION_UPSTREAM)/
+#	dh_install kernel-modules/src/matrixio.dtbo boot/firmware/overlays
+
+override_dh_auto_install:
+	cd kernel-modules && $(MAKE) DESTDIR=$(CURDIR)/debian/matrix-ng-kernel-modules PACKAGE_VERSION=$(DEB_VERSION_UPSTREAM) dkms_source_install
+	cd init && $(MAKE) DESTDIR=$(CURDIR)/debian/matrix-ng-init PACKAGE_VERSION=$(DEB_VERSION_UPSTREAM) deb_install
+	cd firmware && $(MAKE) DESTDIR=$(CURDIR)/debian/matrix-ng-firmware PACKAGE_VERSION=$(DEB_VERSION_UPSTREAM) deb_install
+
+
+override_dh_clean:
+	dh_clean kernel-modules/src/matrixio.dtbo
 
 override_dh_dkms:
 	dh_dkms -V $(DEB_VERSION_UPSTREAM)
